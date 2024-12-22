@@ -1,0 +1,477 @@
+[2024-12-22 16:25:53] Début du processus de bannissement - User ID: 14, Action: ban
+[2024-12-22 16:25:53] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 16:25:53] Détails de l'utilisateur : Array
+(
+    [id] => 14
+    [nom] => Utilisateur
+    [prenom] => Test
+    [role_id] => 3
+    [is_banned] => 0
+    [email] => test@example.com
+)
+
+[2024-12-22 16:25:53] Nouveau statut de bannissement : 1
+[2024-12-22 16:25:53] ERREUR CRITIQUE de bannissement d'utilisateur : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'date_modification' in 'field list'
+[2024-12-22 16:25:53] Trace de l'erreur : Array
+(
+    [0] => Array
+        (
+            [file] => C:\xampp\htdocs\Khawla_Boukniter-manager\views\admin\ban_user.php
+            [line] => 77
+            [function] => prepare
+            [class] => PDO
+            [type] => ->
+            [args] => Array
+                (
+                    [0] => 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END,
+            date_modification = NOW() 
+        WHERE id = ?
+    
+                )
+
+        )
+
+)
+
+[2024-12-22 16:29:34] Début du processus de bannissement - User ID: 14, Action: ban
+[2024-12-22 16:29:34] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 16:29:34] Détails de l'utilisateur : Array
+(
+    [id] => 14
+    [nom] => Utilisateur
+    [prenom] => Test
+    [role_id] => 3
+    [is_banned] => 0
+    [email] => test@example.com
+)
+
+[2024-12-22 16:29:34] Nouveau statut de bannissement : 1
+[2024-12-22 16:29:34] Paramètres de mise à jour : Array
+(
+    [0] => 1
+    [1] => 1
+    [2] => 14
+)
+
+[2024-12-22 16:29:34] Résultat de la mise à jour : Succès
+[2024-12-22 16:29:34] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 16:29:34] ERREUR CRITIQUE de bannissement d'utilisateur : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'formation_manager.sessions' doesn't exist
+[2024-12-22 16:29:34] Trace de l'erreur : Array
+(
+    [0] => Array
+        (
+            [file] => C:\xampp\htdocs\Khawla_Boukniter-manager\views\admin\ban_user.php
+            [line] => 102
+            [function] => prepare
+            [class] => PDO
+            [type] => ->
+            [args] => Array
+                (
+                    [0] => 
+            DELETE FROM sessions 
+            WHERE user_id = ?
+        
+                )
+
+        )
+
+)
+
+[2024-12-22 16:34:37] Début du processus de bannissement - User ID: 14, Action: ban
+[2024-12-22 16:34:37] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 16:34:37] Détails de l'utilisateur : Array
+(
+    [id] => 14
+    [nom] => Utilisateur
+    [prenom] => Test
+    [role_id] => 3
+    [is_banned] => 0
+    [email] => test@example.com
+)
+
+[2024-12-22 16:34:37] Nouveau statut de bannissement : 1
+[2024-12-22 16:34:37] Paramètres de mise à jour : Array
+(
+    [0] => 1
+    [1] => 1
+    [2] => 14
+)
+
+[2024-12-22 16:34:37] Résultat de la mise à jour : Succès
+[2024-12-22 16:34:37] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 16:34:37] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 16:34:37] Nombre de lignes affectées : 1
+[2024-12-22 16:34:37] ERREUR CRITIQUE de bannissement d'utilisateur : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'formation_manager.sessions' doesn't exist
+[2024-12-22 16:34:37] Trace de l'erreur : Array
+(
+    [0] => Array
+        (
+            [file] => C:\xampp\htdocs\Khawla_Boukniter-manager\views\admin\ban_user.php
+            [line] => 104
+            [function] => prepare
+            [class] => PDO
+            [type] => ->
+            [args] => Array
+                (
+                    [0] => 
+            DELETE FROM sessions 
+            WHERE user_id = ?
+        
+                )
+
+        )
+
+)
+
+[2024-12-22 16:36:13] Début du processus de bannissement - User ID: 14, Action: ban
+[2024-12-22 16:36:13] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 16:36:13] Détails de l'utilisateur : Array
+(
+    [id] => 14
+    [nom] => Utilisateur
+    [prenom] => Test
+    [role_id] => 3
+    [is_banned] => 0
+    [email] => test@example.com
+)
+
+[2024-12-22 16:36:13] Nouveau statut de bannissement : 1
+[2024-12-22 16:36:13] Paramètres de mise à jour : Array
+(
+    [0] => 1
+    [1] => 1
+    [2] => 14
+)
+
+[2024-12-22 16:36:13] Résultat de la mise à jour : Succès
+[2024-12-22 16:36:13] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 16:36:13] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 16:36:13] Nombre de lignes affectées : 1
+[2024-12-22 16:36:13] Table 'sessions' n'existe pas. Aucune session à invalider.
+[2024-12-22 16:36:13] Utilisateur banni : Utilisateur Test (ID: 14, Email: test@example.com)
+[2024-12-22 16:36:28] Début du processus de bannissement - User ID: 14, Action: unban
+[2024-12-22 16:36:28] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 16:36:28] Détails de l'utilisateur : Array
+(
+    [id] => 14
+    [nom] => Utilisateur
+    [prenom] => Test
+    [role_id] => 3
+    [is_banned] => 1
+    [email] => test@example.com
+)
+
+[2024-12-22 16:36:28] Nouveau statut de bannissement : 0
+[2024-12-22 16:36:28] Paramètres de mise à jour : Array
+(
+    [0] => 0
+    [1] => 0
+    [2] => 14
+)
+
+[2024-12-22 16:36:28] Résultat de la mise à jour : Succès
+[2024-12-22 16:36:28] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 16:36:28] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 16:36:28] Nombre de lignes affectées : 1
+[2024-12-22 16:36:28] Utilisateur débanni : Utilisateur Test (ID: 14, Email: test@example.com)
+[2024-12-22 16:36:35] Début du processus de bannissement - User ID: 16, Action: ban
+[2024-12-22 16:36:35] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 16:36:35] Détails de l'utilisateur : Array
+(
+    [id] => 16
+    [nom] => Exercitation numquam
+    [prenom] => Nostrum adipisci eni
+    [role_id] => 3
+    [is_banned] => 0
+    [email] => tech.skills.build@gmail.com
+)
+
+[2024-12-22 16:36:35] Nouveau statut de bannissement : 1
+[2024-12-22 16:36:35] Paramètres de mise à jour : Array
+(
+    [0] => 1
+    [1] => 1
+    [2] => 16
+)
+
+[2024-12-22 16:36:35] Résultat de la mise à jour : Succès
+[2024-12-22 16:36:35] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 16:36:35] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 16:36:35] Nombre de lignes affectées : 1
+[2024-12-22 16:36:35] Table 'sessions' n'existe pas. Aucune session à invalider.
+[2024-12-22 16:36:35] Utilisateur banni : Exercitation numquam Nostrum adipisci eni (ID: 16, Email: tech.skills.build@gmail.com)
+[2024-12-22 16:39:23] Début du processus de bannissement - User ID: 14, Action: ban
+[2024-12-22 16:39:23] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 16:39:23] Détails de l'utilisateur : Array
+(
+    [id] => 14
+    [nom] => Utilisateur
+    [prenom] => Test
+    [role_id] => 3
+    [is_banned] => 0
+    [email] => test@example.com
+)
+
+[2024-12-22 16:39:23] Nouveau statut de bannissement : 1
+[2024-12-22 16:39:23] Paramètres de mise à jour : Array
+(
+    [0] => 1
+    [1] => 1
+    [2] => 14
+)
+
+[2024-12-22 16:39:23] Résultat de la mise à jour : Succès
+[2024-12-22 16:39:23] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 16:39:23] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 16:39:23] Nombre de lignes affectées : 1
+[2024-12-22 16:39:23] Table 'sessions' n'existe pas. Aucune session à invalider.
+[2024-12-22 16:39:23] Utilisateur banni : Utilisateur Test (ID: 14, Email: test@example.com)
+[2024-12-22 16:42:01] Début du processus de bannissement - User ID: 16, Action: unban
+[2024-12-22 16:42:01] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 16:42:01] Détails de l'utilisateur : Array
+(
+    [id] => 16
+    [nom] => Exercitation numquam
+    [prenom] => Nostrum adipisci eni
+    [role_id] => 3
+    [is_banned] => 1
+    [email] => tech.skills.build@gmail.com
+)
+
+[2024-12-22 16:42:01] Nouveau statut de bannissement : 0
+[2024-12-22 16:42:01] Paramètres de mise à jour : Array
+(
+    [0] => 0
+    [1] => 0
+    [2] => 16
+)
+
+[2024-12-22 16:42:01] Résultat de la mise à jour : Succès
+[2024-12-22 16:42:01] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 16:42:01] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 16:42:01] Nombre de lignes affectées : 1
+[2024-12-22 16:42:01] Utilisateur débanni : Exercitation numquam Nostrum adipisci eni (ID: 16, Email: tech.skills.build@gmail.com)
+[2024-12-22 16:42:04] Début du processus de bannissement - User ID: 14, Action: unban
+[2024-12-22 16:42:04] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 16:42:04] Détails de l'utilisateur : Array
+(
+    [id] => 14
+    [nom] => Utilisateur
+    [prenom] => Test
+    [role_id] => 3
+    [is_banned] => 1
+    [email] => test@example.com
+)
+
+[2024-12-22 16:42:04] Nouveau statut de bannissement : 0
+[2024-12-22 16:42:04] Paramètres de mise à jour : Array
+(
+    [0] => 0
+    [1] => 0
+    [2] => 14
+)
+
+[2024-12-22 16:42:04] Résultat de la mise à jour : Succès
+[2024-12-22 16:42:04] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 16:42:04] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 16:42:04] Nombre de lignes affectées : 1
+[2024-12-22 16:42:04] Utilisateur débanni : Utilisateur Test (ID: 14, Email: test@example.com)
+[2024-12-22 17:42:28] Début du processus de bannissement - User ID: 13, Action: ban
+[2024-12-22 17:42:28] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 17:42:28] Détails de l'utilisateur : Array
+(
+    [id] => 13
+    [nom] => Voluptas et dolores
+    [prenom] => Doloribus neque dist
+    [role_id] => 1
+    [is_banned] => 0
+    [email] => khawlaboukniter2004@gmail.com
+)
+
+[2024-12-22 17:42:28] ERREUR : Tentative de bannir un administrateur
+[2024-12-22 17:42:28] ERREUR CRITIQUE de bannissement d'utilisateur : Impossible de bannir un administrateur.
+[2024-12-22 17:42:28] Trace de l'erreur : Array
+(
+)
+
+[2024-12-22 17:42:33] Début du processus de bannissement - User ID: 13, Action: ban
+[2024-12-22 17:42:33] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 17:42:33] Détails de l'utilisateur : Array
+(
+    [id] => 13
+    [nom] => Voluptas et dolores
+    [prenom] => Doloribus neque dist
+    [role_id] => 1
+    [is_banned] => 0
+    [email] => khawlaboukniter2004@gmail.com
+)
+
+[2024-12-22 17:42:33] ERREUR : Tentative de bannir un administrateur
+[2024-12-22 17:42:33] ERREUR CRITIQUE de bannissement d'utilisateur : Impossible de bannir un administrateur.
+[2024-12-22 17:42:33] Trace de l'erreur : Array
+(
+)
+
+[2024-12-22 17:42:52] Début du processus de bannissement - User ID: 13, Action: ban
+[2024-12-22 17:42:52] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 17:42:52] Détails de l'utilisateur : Array
+(
+    [id] => 13
+    [nom] => Voluptas et dolores
+    [prenom] => Doloribus neque dist
+    [role_id] => 1
+    [is_banned] => 0
+    [email] => khawlaboukniter2004@gmail.com
+)
+
+[2024-12-22 17:42:52] ERREUR : Tentative de bannir un administrateur
+[2024-12-22 17:42:52] ERREUR CRITIQUE de bannissement d'utilisateur : Impossible de bannir un administrateur.
+[2024-12-22 17:42:52] Trace de l'erreur : Array
+(
+)
+
+[2024-12-22 17:45:40] Début du processus de bannissement - User ID: 13, Action: ban
+[2024-12-22 17:45:40] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 17:45:40] Détails de l'utilisateur : Array
+(
+    [id] => 13
+    [nom] => Voluptas et dolores
+    [prenom] => Doloribus neque dist
+    [role_id] => 1
+    [is_banned] => 0
+    [email] => khawlaboukniter2004@gmail.com
+)
+
+[2024-12-22 17:45:40] ERREUR : Tentative de bannir un administrateur
+[2024-12-22 17:45:40] ERREUR CRITIQUE de bannissement d'utilisateur : Impossible de bannir un administrateur.
+[2024-12-22 17:45:40] Trace de l'erreur : Array
+(
+)
+
+[2024-12-22 17:47:43] Début du processus de bannissement - User ID: 8, Action: ban
+[2024-12-22 17:47:43] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 17:47:43] Détails de l'utilisateur : Array
+(
+    [id] => 8
+    [nom] => Proident mollit del
+    [prenom] => Aliquip in eveniet
+    [role_id] => 2
+    [is_banned] => 0
+    [email] => cijowup@mailinator.com
+)
+
+[2024-12-22 17:47:43] Nouveau statut de bannissement : 1
+[2024-12-22 17:47:43] Paramètres de mise à jour : Array
+(
+    [0] => 1
+    [1] => 1
+    [2] => 8
+)
+
+[2024-12-22 17:47:43] Résultat de la mise à jour : Succès
+[2024-12-22 17:47:43] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 17:47:43] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 17:47:43] Nombre de lignes affectées : 1
+[2024-12-22 17:47:43] État de l'utilisateur après mise à jour : Array
+(
+    [is_banned] => 1
+    [banned_at] => 2024-12-22 17:47:43
+)
+
+[2024-12-22 17:47:43] Utilisateur banni : Proident mollit del Aliquip in eveniet (ID: 8, Email: cijowup@mailinator.com)

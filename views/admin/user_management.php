@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../../config/database.php';
+require_once '../../connexion.php';
 require_once '../../includes/functions.php';
 
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) {
@@ -79,19 +79,6 @@ try {
                     header('Location: edit_user.php?id=' . $user_id);
                     exit();
                 }
-            }
-            break;
-
-        case 'delete_user':
-            $user_id = $_GET['user_id'] ?? null;
-
-            if ($user_id) {
-                $stmt = $pdo->prepare("UPDATE users SET status = 'deleted' WHERE id = ?");
-                $stmt->execute([$user_id]);
-
-                $_SESSION['success_message'] = "Utilisateur supprimé avec succès.";
-                header('Location: users.php');
-                exit();
             }
             break;
 
