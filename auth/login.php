@@ -110,6 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <title>Connexion</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/js/sweet_alerts.js"></script>
 </head>
 <body>
     <div class="login-container">
@@ -117,9 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h2>Connexion</h2>
 
             <?php if (!empty($error)): ?>
-                <div class="alert alert-danger">
-                    <?= htmlspecialchars($error) ?>
-                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        showErrorAlert('<?= htmlspecialchars($error, ENT_QUOTES) ?>');
+                    });
+                </script>
             <?php endif; ?>
 
             <?php if (isset($_SESSION['ban_details'])): ?>
@@ -153,7 +157,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="form-footer">
                 <a href="register.php">Pas de compte ? Inscrivez-vous</a>
-                <a href="reset-password.php">Mot de passe oublié ?</a>
             </div>
         </form>
     </div>

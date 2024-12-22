@@ -83,6 +83,8 @@ $csrf_token = CSRFToken::generateToken();
     <meta charset="UTF-8">
     <title>Inscription</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../assets/js/sweet_alerts.js"></script>
 </head>
 <body>
     <div class="register-container">
@@ -90,7 +92,11 @@ $csrf_token = CSRFToken::generateToken();
             <h2>Inscription</h2>
 
             <?php if (!empty($error)): ?>
-                <div class="error-message"><?= $error ?></div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        showErrorAlert('<?= htmlspecialchars(strip_tags($error), ENT_QUOTES) ?>');
+                    });
+                </script>
             <?php endif; ?>
 
             <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
@@ -137,6 +143,16 @@ $csrf_token = CSRFToken::generateToken();
             </div>
         </form>
     </div>
+
+    <script>
+        document.querySelector('.register-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            showConfirmAlert('Voulez-vous vraiment créer ce compte ?', () => {
+                event.target.submit();
+            }, 'Confirmation d\'inscription');
+        });
+    </script>
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {

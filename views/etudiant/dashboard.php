@@ -37,6 +37,8 @@ $recent_courses = $stmt_recent_courses->fetchAll();
     <title>Tableau de Bord Étudiant</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../assets/js/sweet_alerts.js"></script>
 </head>
 <body>
     <div class="container">
@@ -76,5 +78,20 @@ $recent_courses = $stmt_recent_courses->fetchAll();
     <footer class="footer">
         <p>&copy; 2024 Système de Gestion de Formations en Ligne</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Confirmation de déconnexion
+            const logoutLinks = document.querySelectorAll('a[href*="logout.php"]');
+            logoutLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    showConfirmAlert('Voulez-vous vraiment vous déconnecter ?', () => {
+                        window.location.href = this.href;
+                    }, 'Déconnexion');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

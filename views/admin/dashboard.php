@@ -24,7 +24,8 @@ $etudiants_count = $stmt_etudiants->fetch()['total'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord Admin</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="https:">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../assets/js/sweet_alerts.js"></script>
     <style>
         .dashboard-grid {
             display: grid;

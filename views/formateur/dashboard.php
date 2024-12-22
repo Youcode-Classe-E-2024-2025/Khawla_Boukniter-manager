@@ -59,6 +59,9 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord - Formateur</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../assets/js/sweet_alerts.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
     <style>
         .dashboard-grid {
@@ -229,6 +232,32 @@ try {
     <footer class="footer">
         <p>&copy; 2024 Système de Gestion de Formations en Ligne. Tous droits réservés.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Confirmation de déconnexion
+            const logoutLinks = document.querySelectorAll('a[href*="logout.php"]');
+            logoutLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    showConfirmAlert('Voulez-vous vraiment vous déconnecter ?', () => {
+                        window.location.href = this.href;
+                    }, 'Déconnexion');
+                });
+            });
+
+            // Confirmation de suppression de cours ou de module
+            const deleteLinks = document.querySelectorAll('.delete-action');
+            deleteLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    showConfirmAlert('Voulez-vous vraiment supprimer cet élément ?', () => {
+                        window.location.href = this.href;
+                    }, 'Suppression');
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

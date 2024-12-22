@@ -233,12 +233,7 @@ try {
                     <?php endforeach; ?>
                 </select>
 
-                <button type="submit" class="btn btn-primary">Filtrer</button>
             </form>
-            
-            <a href="user_management.php?action=create_user" class="btn btn-success">
-                Ajouter un Utilisateur
-            </a>
         </div>
 
         <?php if (empty($users)): ?>
@@ -278,8 +273,6 @@ try {
                                 </span>
                             </td>
                             <td>
-                                <a href="edit_user.php?id=<?= $user['id'] ?>" class="btn-action btn-edit">Modifier</a>
-                                
                                 <?php if ($user['is_banned'] == 0): ?>
                                     <a href="ban_user.php?user_id=<?= $user['id'] ?>&action=ban" class="btn-action btn-ban" onclick="return confirm('Voulez-vous vraiment bannir cet utilisateur ?')">Bannir</a>
                                 <?php else: ?>
