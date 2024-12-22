@@ -112,6 +112,7 @@ $csrf_token = CSRFToken::generateToken();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier un Module - Formateur</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         .form-module {
             max-width: 600px;
@@ -155,24 +156,32 @@ $csrf_token = CSRFToken::generateToken();
             margin-bottom: 20px;
         }
 
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: white;
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .form-actions .btn {
+            flex-grow: 1;
+            margin: 0 10px;
+            padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
         }
-
-        .btn-submit:hover {
-            background-color: var(--secondary-color);
+        .form-actions .btn-primary {
+            background-color: var(--primary-color, #007bff);
+            color: white;
         }
-
-        .btn-delete {
+        .form-actions .btn-danger {
             background-color: #dc3545;
-            margin-top: 15px;
+            color: white;
+        }
+        .form-actions .btn:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -201,47 +210,43 @@ $csrf_token = CSRFToken::generateToken();
                 </div>
             <?php endif; ?>
 
-            <form method="POST" action="">
-                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
+            <form action="edit_module.php?id=<?= $module_id ?>" method="POST">
+                <?php CSRFToken::insertTokenField(); ?>
 
                 <div class="form-group">
                     <label for="titre">Titre du Module</label>
-                    <input type="text" id="titre" name="titre" 
-                           value="<?= htmlspecialchars($titre) ?>" 
-                           required placeholder="Ex: Introduction à la Programmation">
+                    <input type="text" id="titre" name="titre" value="<?= htmlspecialchars($titre) ?>" required>
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea id="description" name="description" 
-                              rows="5" required 
-                              placeholder="Décrivez brièvement le contenu et les objectifs du module"><?= htmlspecialchars($description) ?></textarea>
+                    <textarea id="description" name="description" rows="4" required><?= htmlspecialchars($description) ?></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="course_id">Cours</label>
                     <select id="course_id" name="course_id" required>
-                        <option value="">Sélectionnez un cours</option>
-                        <?php foreach ($cours as $cours_item): ?>
-                            <option value="<?= $cours_item['id'] ?>" <?= $course_id === $cours_item['id'] ? 'selected' : '' ?>><?= htmlspecialchars($cours_item['titre']) ?></option>
+                        <?php foreach ($cours as $c): ?>
+                            <option value="<?= $c['id'] ?>" <?= $c['id'] == $course_id ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($c['titre']) ?>
+                            </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="ordre">Ordre</label>
-                    <input type="number" id="ordre" name="ordre" 
-                           value="<?= htmlspecialchars($ordre) ?>" 
-                           required placeholder="Ex: 1">
+                    <label for="ordre">Ordre du Module</label>
+                    <input type="number" id="ordre" name="ordre" value="<?= htmlspecialchars($ordre) ?>" required>
                 </div>
 
-                <button type="submit" class="btn-submit">Modifier le Module</button>
-
-                <a href="delete_module.php?id=<?= $module_id ?>" 
-                   class="btn btn-submit btn-delete"
-                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce module ? Cette action est irréversible.');">
-                    Supprimer le Module
-                </a>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Modifier le Module</button>
+                    <a href="delete_module.php?id=<?= $module_id ?>" 
+                       class="btn btn-danger"
+                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce module ? Cette action est irréversible.');">
+                        Supprimer le Module
+                    </a>
+                </div>
             </form>
         </div>
     </div>
