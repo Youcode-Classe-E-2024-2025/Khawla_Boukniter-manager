@@ -143,6 +143,25 @@ try {
             background-color: #e6e6e6;
         }
 
+        .btn-delete {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
         .pagination {
             display: flex;
             justify-content: center;
@@ -178,32 +197,6 @@ try {
             </ul>
         </div>
 
-        <!-- <div class="students-filters">
-            <form method="GET" action="">
-                <div class="form-group">
-                    <label for="module">Filtrer par Cours</label>
-                    <select name="module" id="module">
-                        <option value="">Tous les cours</option>
-                        <?php foreach ($modules as $module): ?>
-                            <option value="<?= $module['id'] ?>" 
-                                <?= $module_filter == $module['id'] ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($module['titre']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="search">Rechercher</label>
-                    <input type="text" name="search" id="search" 
-                           placeholder="Nom, prénom ou email" 
-                           value="<?= htmlspecialchars($search_query ?? '') ?>">
-                </div>
-
-                <button type="submit" class="btn">Filtrer</button>
-            </form>
-        </div> -->
-
         <?php if (empty($students)): ?>
             <div class="alert alert-info">
                 <p>Aucun étudiant trouvé.</p>
@@ -217,6 +210,7 @@ try {
                         <th>Email</th>
                         <th>Cours Inscrits</th>
                         <th>Dernière Inscription</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -226,30 +220,42 @@ try {
                             <td><?= htmlspecialchars($student['prenom']) ?></td>
                             <td><?= htmlspecialchars($student['email']) ?></td>
                             <td><?= $student['total_courses'] ?></td>
-                            <td><?= date('d/m/Y', strtotime($student['derniere_inscription'])) ?></td>
+                            <td><?= htmlspecialchars(date('d/m/Y', strtotime($student['derniere_inscription']))) ?></td>
+                            <td>
+                                <a href="#" class="btn-delete" onclick="confirmDeleteStudent(<?= $student['id'] ?>)">
+                                    Supprimer
+                                </a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
 
-            <?php if ($total_pages > 1): ?>
-                <div class="pagination">
-                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                        <?php 
-                        $url_params = http_build_query([
-                            'page' => $i, 
-                            'module' => $module_filter, 
-                            'search' => $search_query
-                        ]); 
-                        ?>
-                        <?php if ($i == $page): ?>
-                            <span class="current"><?= $i ?></span>
-                        <?php else: ?>
-                            <a href="?<?= $url_params ?>"><?= $i ?></a>
-                        <?php endif; ?>
-                    <?php endfor; ?>
-                </div>
-            <?php endif; ?>
+            <script>
+            function confirmDeleteStudent(studentId) {
+                if (confirm('Voulez-vous vraiment supprimer cet étudiant de tous vos cours ?')) {
+                    window.location.href = 'delete_student.php?student_id=' + studentId;
+                }
+            }
+            </script>
+
+            <div class="pagination">
+                <?php if ($page > 1): ?>
+                    <a href="?page=<?= $page - 1 ?>&module=<?= $module_filter ?>&search=<?= urlencode($search_query) ?>">Précédent</a>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <?php if ($i == $page): ?>
+                        <span class="current"><?= $i ?></span>
+                    <?php else: ?>
+                        <a href="?page=<?= $i ?>&module=<?= $module_filter ?>&search=<?= urlencode($search_query) ?>"><?= $i ?></a>
+                    <?php endif; ?>
+                <?php endfor; ?>
+
+                <?php if ($page < $total_pages): ?>
+                    <a href="?page=<?= $page + 1 ?>&module=<?= $module_filter ?>&search=<?= urlencode($search_query) ?>">Suivant</a>
+                <?php endif; ?>
+            </div>
         <?php endif; ?>
     </div>
 
