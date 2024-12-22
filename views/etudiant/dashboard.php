@@ -81,7 +81,6 @@ $recent_courses = $stmt_recent_courses->fetchAll();
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Confirmation de déconnexion
             const logoutLinks = document.querySelectorAll('a[href*="logout.php"]');
             logoutLinks.forEach(link => {
                 link.addEventListener('click', function(event) {
