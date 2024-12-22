@@ -1,3 +1,6 @@
+CREATE DATABASE formation_manager;
+USE formation_manager;
+
 CREATE TABLE roles (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL,
@@ -31,6 +34,8 @@ CREATE TABLE modules (
     titre VARCHAR(255) NOT NULL,
     description TEXT,
     ordre INT NOT NULL DEFAULT 0,
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_archived BOOLEAN DEFAULT false,
     FOREIGN KEY (course_id) REFERENCES cours(id)
 );
 
@@ -68,13 +73,13 @@ INSERT INTO cours (formateur_id, titre, description, niveau) VALUES
 (3, 'React Intermédiaire', "Développement d'applications avec React", 'intermediaire');
 
 -- Insertion des modules
-INSERT INTO modules (course_id, titre, description, ordre) VALUES
-(1, 'Variables et Types', 'Introduction aux variables PHP', 1),
-(1, 'Structures de contrôle', 'If, else, switch, boucles', 2),
-(2, 'Promises', 'Gestion asynchrone en JavaScript', 1),
-(2, 'ES6+', 'Fonctionnalités modernes de JavaScript', 2),
-(3, 'Structure HTML', 'Bases du HTML5', 1),
-(3, 'Styling CSS', 'Mise en forme avec CSS3', 2);
+INSERT INTO modules (course_id, titre, description, ordre, is_archived) VALUES
+(1, 'Variables et Types', 'Introduction aux variables PHP', 1, false),
+(1, 'Structures de contrôle', 'If, else, switch, boucles', 2, false),
+(2, 'Promises', 'Gestion asynchrone en JavaScript', 1, false),
+(2, 'ES6+', 'Fonctionnalités modernes de JavaScript', 2, false),
+(3, 'Structure HTML', 'Bases du HTML5', 1, false),
+(3, 'Styling CSS', 'Mise en forme avec CSS3', 2, false);
 
 -- Insertion des inscriptions
 INSERT INTO inscriptions (user_id, course_id, progression, status) VALUES
