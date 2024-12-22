@@ -9,7 +9,7 @@ $user_id = $_SESSION['user']['id'];
 $stmt_courses = $pdo->prepare("
     SELECT COUNT(DISTINCT course_id) as total_courses
     FROM inscriptions
-    WHERE user_id = ?
+    WHERE user_id = ? AND status = 'accepte'
 ");
 $stmt_courses->execute([$user_id]);
 $course_stats = $stmt_courses->fetch();
@@ -17,13 +17,14 @@ $course_stats = $stmt_courses->fetch();
 $total_courses = $course_stats['total_courses'] ?? 0;
 
 $stmt_recent_courses = $pdo->prepare("
-    SELECT 
+    SELECT DISTINCT
         c.id, 
         c.titre, 
         c.description
     FROM cours c
     JOIN inscriptions i ON c.id = i.course_id
-    WHERE i.user_id = ?
+    WHERE i.user_id = ? AND i.status = 'accepte'
+    ORDER BY i.date_inscription DESC
     LIMIT 3
 ");
 $stmt_recent_courses->execute([$user_id]);
@@ -35,46 +36,7 @@ $recent_courses = $stmt_recent_courses->fetchAll();
     <meta charset="UTF-8">
     <title>Tableau de Bord Étudiant</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <style>
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        .dashboard-card {
-            background-color: #f4f4f4;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .big-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: var(--primary-color, #007bff);
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .nav ul li a {
-            text-decoration: none;
-        }
-        .course-item {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            padding: 10px;
-            background-color: #f4f4f4;
-        }
-    </style>
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
 </head>
 <body>
     <div class="container">

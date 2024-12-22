@@ -6,16 +6,16 @@ require_once '../../includes/error_handler.php';
 checkAccess([1, 3]); 
 
 try {
-
     $stmt = $pdo->prepare("
         SELECT c.id, c.titre, c.description, c.niveau, f.nom AS formateur_nom 
         FROM cours c
         JOIN inscriptions i ON c.id = i.course_id
         JOIN users f ON c.formateur_id = f.id
-        WHERE i.user_id = ? AND i.status = 'accepted'
+        WHERE i.user_id = ? AND i.status = 'accepte'
     ");
     $stmt->execute([$_SESSION['user']['id']]);
     $courses = $stmt->fetchAll();
+
 } catch (PDOException $e) {
     logError("Erreur de récupération des cours : " . $e->getMessage());
     displayUserError("Impossible de charger vos cours. Réessayez plus tard.");
@@ -33,18 +33,17 @@ try {
     <div class="container">
         <div class="header">
             <h1>Mes Cours</h1>
-            <p>Suivez votre progression dans les formations</p>
         </div>
 
         <div class="nav">
             <ul>
                 <li><a href="dashboard.php">Tableau de bord</a></li>
                 <li><a href="browse_courses.php">Parcourir les cours</a></li>
+                <li><a href="../../auth/logout.php">Déconnexion</a></li>
             </ul>
         </div>
 
         <?php 
-
         if (isset($_SESSION['success_message'])) {
             echo '<div class="success">' . htmlspecialchars($_SESSION['success_message']) . '</div>';
             unset($_SESSION['success_message']);
@@ -69,7 +68,7 @@ try {
                         $module_stmt = $pdo->prepare("
                             SELECT id, titre, description 
                             FROM modules 
-                            WHERE course_id =?
+                            WHERE course_id = ?
                         ");
                         $module_stmt->execute([$course['id']]);
                         $modules = $module_stmt->fetchAll();
