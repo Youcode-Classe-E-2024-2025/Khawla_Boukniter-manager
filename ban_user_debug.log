@@ -475,3 +475,131 @@
 )
 
 [2024-12-22 17:47:43] Utilisateur banni : Proident mollit del Aliquip in eveniet (ID: 8, Email: cijowup@mailinator.com)
+[2024-12-22 17:52:24] Début du processus de bannissement - User ID: 8, Action: unban
+[2024-12-22 17:52:24] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 17:52:24] Détails de l'utilisateur : Array
+(
+    [id] => 8
+    [nom] => Proident mollit del
+    [prenom] => Aliquip in eveniet
+    [role_id] => 2
+    [is_banned] => 1
+    [email] => cijowup@mailinator.com
+)
+
+[2024-12-22 17:52:24] Nouveau statut de bannissement : 0
+[2024-12-22 17:52:24] Paramètres de mise à jour : Array
+(
+    [0] => 0
+    [1] => 0
+    [2] => 8
+)
+
+[2024-12-22 17:52:24] Résultat de la mise à jour : Succès
+[2024-12-22 17:52:24] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 17:52:24] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 17:52:24] Nombre de lignes affectées : 1
+[2024-12-22 17:52:24] État de l'utilisateur après mise à jour : Array
+(
+    [is_banned] => 0
+    [banned_at] => 
+)
+
+[2024-12-22 17:52:24] Utilisateur débanni : Proident mollit del Aliquip in eveniet (ID: 8, Email: cijowup@mailinator.com)
+[2024-12-22 17:55:16] Début du processus de bannissement - User ID: 8, Action: ban
+[2024-12-22 17:55:16] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 17:55:16] Détails de l'utilisateur : Array
+(
+    [id] => 8
+    [nom] => Proident mollit del
+    [prenom] => Aliquip in eveniet
+    [role_id] => 2
+    [is_banned] => 0
+    [email] => cijowup@mailinator.com
+)
+
+[2024-12-22 17:55:16] Nouveau statut de bannissement : 1
+[2024-12-22 17:55:16] Paramètres de mise à jour : Array
+(
+    [0] => 1
+    [1] => 1
+    [2] => 8
+)
+
+[2024-12-22 17:55:16] Résultat de la mise à jour : Succès
+[2024-12-22 17:55:16] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 17:55:16] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 17:55:16] Nombre de lignes affectées : 1
+[2024-12-22 17:55:16] État de l'utilisateur après mise à jour : Array
+(
+    [is_banned] => 1
+    [banned_at] => 2024-12-22 17:55:16
+)
+
+[2024-12-22 17:55:16] Utilisateur banni : Proident mollit del Aliquip in eveniet (ID: 8, Email: cijowup@mailinator.com)
+[2024-12-22 18:20:26] Début du processus de bannissement - User ID: 8, Action: unban
+[2024-12-22 18:20:26] Résultat de l'exécution de la requête de vérification : Succès
+[2024-12-22 18:20:26] Détails de l'utilisateur : Array
+(
+    [id] => 8
+    [nom] => Proident mollit del
+    [prenom] => Aliquip in eveniet
+    [role_id] => 2
+    [is_banned] => 1
+    [email] => cijowup@mailinator.com
+)
+
+[2024-12-22 18:20:26] Nouveau statut de bannissement : 0
+[2024-12-22 18:20:26] Paramètres de mise à jour : Array
+(
+    [0] => 0
+    [1] => 0
+    [2] => 8
+)
+
+[2024-12-22 18:20:26] Résultat de la mise à jour : Succès
+[2024-12-22 18:20:26] Requête SQL : 
+        UPDATE users 
+        SET is_banned = ?, 
+            banned_at = CASE WHEN ? = 1 THEN NOW() ELSE NULL END
+        WHERE id = ?
+    
+[2024-12-22 18:20:26] Erreurs PDO : Array
+(
+    [0] => 00000
+    [1] => 
+    [2] => 
+)
+
+[2024-12-22 18:20:26] Nombre de lignes affectées : 1
+[2024-12-22 18:20:26] État de l'utilisateur après mise à jour : Array
+(
+    [is_banned] => 0
+    [banned_at] => 
+)
+
+[2024-12-22 18:20:26] Utilisateur débanni : Proident mollit del Aliquip in eveniet (ID: 8, Email: cijowup@mailinator.com)
+[2024-12-22 18:32:02] Début du processus de bannissement - User ID: 0, Action: 
+[2024-12-22 18:32:02] ERREUR : Paramètres invalides - User ID: 0, Action: 
