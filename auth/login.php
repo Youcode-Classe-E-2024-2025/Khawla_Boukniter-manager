@@ -38,7 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             $prenom = trim($user_info['prenom']) ?: 'Utilisateur';
                             $nom = trim($user_info['nom']) ?: '';
                             
-                            $ban_message = sprintf(
+                            $error = "Votre compte a été banni le {$formatted_date}.";
+                            
+                            // Stocker le message de bannissement détaillé
+                            $_SESSION['ban_details'] = sprintf(
                                 "<div class='ban-message'>
                                     <h3>Compte Suspendu</h3>
                                     <p>Bonjour %s %s,</p>
@@ -56,11 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 htmlspecialchars($nom), 
                                 $formatted_date
                             );
-                            
-                            $_SESSION['ban_message'] = $ban_message;
                         } else {
-                            unset($_SESSION['ban_message']);
-                            
+                            // Connexion réussie
                             session_regenerate_id(true);
 
                             $_SESSION['user'] = [
@@ -122,8 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             <?php endif; ?>
 
-            <?php if (isset($_SESSION['ban_message'])): ?>
-                <?= $_SESSION['ban_message'] ?>
+            <?php if (isset($_SESSION['ban_details'])): ?>
+                <?= $_SESSION['ban_details'] ?>
             <?php endif; ?>
 
             <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
