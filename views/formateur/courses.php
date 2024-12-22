@@ -204,29 +204,6 @@ try {
             </ul>
         </div>
 
-        <div class="courses-filters">
-            <form method="GET" action="">
-                <div class="form-group">
-                    <label for="niveau">Filtrer par Niveau</label>
-                    <select name="niveau" id="niveau">
-                        <option value="">Tous les niveaux</option>
-                        <option value="debutant" <?= $niveau_filter === 'debutant' ? 'selected' : '' ?>>Débutant</option>
-                        <option value="intermediaire" <?= $niveau_filter === 'intermediaire' ? 'selected' : '' ?>>Intermédiaire</option>
-                        <option value="avance" <?= $niveau_filter === 'avance' ? 'selected' : '' ?>>Avancé</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="search">Rechercher</label>
-                    <input type="text" name="search" id="search" 
-                           placeholder="Titre ou description" 
-                           value="<?= htmlspecialchars($search_query ?? '') ?>">
-                </div>
-
-                <button type="submit" class="btn">Filtrer</button>
-            </form>
-        </div>
-
         <div class="total-courses"><p>Total des cours : <?= $total_courses ?></p></div>
 
         <?php if (empty($courses)): ?>

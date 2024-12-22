@@ -218,24 +218,6 @@ try {
             </ul>
         </div>
 
-        <div class="search-filter">
-            <form method="GET" action="" class="search-form">
-                <input type="text" name="search" placeholder="Rechercher un utilisateur" 
-                       value="<?= htmlspecialchars($search_query ?? '') ?>">
-                
-                <select name="role">
-                    <option value="">Tous les rôles</option>
-                    <?php foreach ($roles as $role): ?>
-                        <option value="<?= $role['id'] ?>" 
-                                <?= $role_filter == $role['id'] ? 'selected' : '' ?>>
-                            <?= htmlspecialchars(ucfirst($role['nom'])) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-
-            </form>
-        </div>
-
         <?php if (empty($users)): ?>
             <div class="alert alert-info">
                 <p>Aucun utilisateur trouvé.</p>

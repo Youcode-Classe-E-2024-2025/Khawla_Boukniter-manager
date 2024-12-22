@@ -28,17 +28,47 @@ try {
         throw new Exception("Utilisateur non trouvé ou impossible à supprimer.");
     }
 
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 0;");
+
     $delete_inscriptions_stmt = $pdo->prepare("
         DELETE FROM inscriptions 
         WHERE user_id = ?
     ");
     $delete_inscriptions_stmt->execute([$user_id]);
 
+    $courses_stmt = $pdo->prepare("SELECT id FROM cours WHERE formateur_id = ?");
+    $courses_stmt->execute([$user_id]);
+    $courses = $courses_stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    if (!empty($courses)) {
+        $delete_modules_stmt = $pdo->prepare("
+            DELETE FROM modules 
+            WHERE course_id IN (" . implode(',', array_fill(0, count($courses), '?')) . ")
+        ");
+        $delete_modules_stmt->execute($courses);
+    }
+
+    if (!empty($courses)) {
+        $delete_course_inscriptions_stmt = $pdo->prepare("
+            DELETE FROM inscriptions 
+            WHERE course_id IN (" . implode(',', array_fill(0, count($courses), '?')) . ")
+        ");
+        $delete_course_inscriptions_stmt->execute($courses);
+    }
+
+    $delete_courses_stmt = $pdo->prepare("
+        DELETE FROM cours 
+        WHERE formateur_id = ?
+    ");
+    $delete_courses_stmt->execute([$user_id]);
+
     $delete_user_stmt = $pdo->prepare("
         DELETE FROM users 
         WHERE id = ?
     ");
     $delete_user_stmt->execute([$user_id]);
+
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 1;");
 
     $pdo->commit();
 
@@ -47,8 +77,11 @@ try {
     exit();
 
 } catch (Exception $e) {
-    $pdo->rollBack();
-    $pdo->rollBack();
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 1;");
+
+    if ($pdo->inTransaction()) {
+        $pdo->rollBack();
+    }
 
     $_SESSION['error'] = $e->getMessage();
     header('Location: users.php');

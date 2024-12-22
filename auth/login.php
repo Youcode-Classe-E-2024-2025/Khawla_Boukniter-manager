@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <li>Activités suspectes détectées</li>
                                     </ul>
                                     <p>Pour plus d'informations, veuillez contacter l'administrateur.</p>
-                                    <p>Email de contact : support@votreplateforme.com</p>
+                                    <p>Email de contact : admin@formation.com</p>
                                 </div>", 
                                 htmlspecialchars($prenom), 
                                 htmlspecialchars($nom), 

@@ -130,6 +130,7 @@ $etudiants_count = $stmt_etudiants->fetch()['total'];
 
         <div class="nav">
                 <ul>
+                    <li><a href="comprehensive_management.php">Gestion Globale</a></li>
                     <li><a href="../../auth/logout.php">Déconnexion</a></li>
                 </ul>
             </div>

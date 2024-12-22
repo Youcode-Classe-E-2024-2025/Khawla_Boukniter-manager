@@ -96,25 +96,3 @@ try {
     </footer>
 </body>
 </html>
-
-<style>
-.modules-section {
-    margin-top: 20px;
-}
-
-.module-item {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.module-item h4 {
-    margin-top: 0;
-}
-
-.module-item p {
-    margin-bottom: 10px;
-}
-</style>
