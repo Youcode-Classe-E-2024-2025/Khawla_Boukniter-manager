@@ -123,14 +123,6 @@ try {
             background-color: #e74c3c;
             color: white;
         }
-        .btn-activate {
-            background-color: #27ae60;
-            color: white;
-        }
-        .btn-deactivate {
-            background-color: #f39c12;
-            color: white;
-        }
     </style>
 </head>
 <body>
@@ -203,23 +195,9 @@ try {
                                     ?>
                                 </td>
                                 <td class="actions">
-                                    <a href="view_etudiant.php?id=<?= $etudiant['id'] ?>" 
-                                       class="btn btn-sm btn-view">
-                                        <i class="fas fa-eye"></i> Voir
-                                    </a>
-                                    <?php if ($etudiant['is_active']): ?>
-                                        <a href="deactivate_etudiant.php?id=<?= $etudiant['id'] ?>&csrf_token=<?= urlencode($csrf_token) ?>" 
-                                           class="btn btn-sm btn-deactivate"
-                                           onclick="return confirm('Voulez-vous vraiment désactiver cet étudiant ?')">
-                                            <i class="fas fa-ban"></i> Désactiver
-                                        </a>
-                                    <?php else: ?>
-                                        <a href="activate_etudiant.php?id=<?= $etudiant['id'] ?>&csrf_token=<?= urlencode($csrf_token) ?>" 
-                                           class="btn btn-sm btn-activate"
-                                           onclick="return confirm('Voulez-vous vraiment activer cet étudiant ?')">
-                                            <i class="fas fa-check-circle"></i> Activer
-                                        </a>
-                                    <?php endif; ?>
+                                    <a href="view_etudiant.php?id=<?= $etudiant['id'] ?>" class="btn-sm btn-view">Voir</a>
+                                    <a href="edit_etudiant.php?id=<?= $etudiant['id'] ?>" class="btn-sm btn-edit">Modifier</a>
+                                    <a href="#" class="btn-sm btn-delete" onclick="confirmDelete(<?= $etudiant['id'] ?>)">Supprimer</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
