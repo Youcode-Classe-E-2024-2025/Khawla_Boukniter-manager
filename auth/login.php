@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             
                             $error = "Votre compte a été banni le {$formatted_date}.";
                             
-                            // Stocker le message de bannissement détaillé
                             $_SESSION['ban_details'] = sprintf(
                                 "<div class='ban-message'>
                                     <h3>Compte Suspendu</h3>
@@ -60,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 $formatted_date
                             );
                         } else {
-                            // Connexion réussie
                             session_regenerate_id(true);
 
                             $_SESSION['user'] = [
@@ -109,58 +107,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Connexion</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/js/sweet_alerts.js"></script>
 </head>
 <body>
-    <div class="login-container">
-        <form method="POST" class="login-form">
+    <div class="auth-container">
+        <form method="POST" class="auth-form login-form">
             <h2>Connexion</h2>
 
             <?php if (!empty($error)): ?>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        showErrorAlert('<?= htmlspecialchars($error, ENT_QUOTES) ?>');
-                    });
-                </script>
+                <div class="error-message">
+                    <?= htmlspecialchars($error) ?>
+                </div>
             <?php endif; ?>
 
-            <?php if (isset($_SESSION['ban_details'])): ?>
-                <?= $_SESSION['ban_details'] ?>
+            <?php if (isset($_GET['message'])): ?>
+                <div class="success-message">
+                    <?= htmlspecialchars($_GET['message']) ?>
+                </div>
             <?php endif; ?>
 
-            <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    placeholder="Votre email"
-                    value="<?= isset($email) ? htmlspecialchars($email) : '' ?>">
+                <input type="email" id="email" name="email" required 
+                       value="<?= htmlspecialchars($email ?? '') ?>">
             </div>
 
             <div class="form-group">
                 <label for="password">Mot de passe</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    required
-                    placeholder="Votre mot de passe">
+                <input type="password" id="password" name="password" required>
             </div>
 
-            <button type="submit" class="btn btn-primary">Se connecter</button>
+            <button type="submit" class="btn">Se connecter</button>
 
-            <div class="form-footer">
-                <a href="register.php">Pas de compte ? Inscrivez-vous</a>
+            <div class="register-link">
+                Pas de compte ? <a href="register.php">Inscrivez-vous</a>
             </div>
         </form>
     </div>
-
-    <script src="../assets/js/login.js"></script>
 </body>
 </html>

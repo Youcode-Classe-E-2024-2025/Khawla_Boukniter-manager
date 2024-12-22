@@ -7,6 +7,9 @@ require_once '../includes/validation.php';
 $error = '';
 $success = '';
 
+$roles_stmt = $pdo->query("SELECT id, nom FROM roles WHERE id != 1");
+$roles = $roles_stmt->fetchAll(PDO::FETCH_ASSOC);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $nom = trim($_POST['nom']);
@@ -14,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-    $role_id = 3; 
+    $role_id = isset($_POST['role_id']) ? (int)$_POST['role_id'] : 3; 
 
     $errors = [];
 
@@ -35,6 +38,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($password !== $confirm_password) {
         $errors[] = "Les mots de passe ne correspondent pas";
+    }
+
+    $role_valid = false;
+    foreach ($roles as $role) {
+        if ($role['id'] == $role_id) {
+            $role_valid = true;
+            break;
+        }
+    }
+    if (!$role_valid) {
+        $errors[] = "Rôle sélectionné invalide";
     }
 
     if (empty($errors)) {
@@ -82,39 +96,33 @@ $csrf_token = CSRFToken::generateToken();
 <head>
     <meta charset="UTF-8">
     <title>Inscription</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../assets/js/sweet_alerts.js"></script>
 </head>
 <body>
-    <div class="register-container">
-        <form method="POST" class="register-form">
+    <div class="auth-container">
+        <form method="POST" class="auth-form register-form">
             <h2>Inscription</h2>
 
             <?php if (!empty($error)): ?>
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        showErrorAlert('<?= htmlspecialchars(strip_tags($error), ENT_QUOTES) ?>');
-                    });
-                </script>
+                <div class="error-message">
+                    <?= $error ?>
+                </div>
             <?php endif; ?>
 
-            <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token) ?>">
 
             <div class="form-group">
                 <label for="nom">Nom</label>
                 <input type="text" id="nom" name="nom" required 
-                       value="<?= htmlspecialchars($nom ?? '') ?>"
-                       pattern="[A-Za-zÀ-ÿ\s-]+" 
-                       title="Utilisez uniquement des lettres et des espaces">
+                       value="<?= htmlspecialchars($nom ?? '') ?>">
             </div>
 
             <div class="form-group">
                 <label for="prenom">Prénom</label>
                 <input type="text" id="prenom" name="prenom" required 
-                       value="<?= htmlspecialchars($prenom ?? '') ?>"
-                       pattern="[A-Za-zÀ-ÿ\s-]+" 
-                       title="Utilisez uniquement des lettres et des espaces">
+                       value="<?= htmlspecialchars($prenom ?? '') ?>">
             </div>
 
             <div class="form-group">
@@ -124,19 +132,30 @@ $csrf_token = CSRFToken::generateToken();
             </div>
 
             <div class="form-group">
+                <label for="role_id">Rôle</label>
+                <select id="role_id" name="role_id" required>
+                    <?php foreach ($roles as $role): ?>
+                        <option value="<?= $role['id'] ?>" 
+                                <?= (isset($role_id) && $role_id == $role['id']) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars(ucfirst($role['nom'])) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" required 
-                       minlength="8"
-                       pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                       title="Au moins 8 caractères, une majuscule, un chiffre et un caractère spécial">
+                       minlength="8">
             </div>
 
             <div class="form-group">
                 <label for="confirm_password">Confirmer le mot de passe</label>
-                <input type="password" id="confirm_password" name="confirm_password" required>
+                <input type="password" id="confirm_password" name="confirm_password" required 
+                       minlength="8">
             </div>
 
-            <button type="submit" class="btn-submit">S'inscrire</button>
+            <button type="submit" class="btn">S'inscrire</button>
 
             <div class="login-link">
                 Déjà un compte ? <a href="login.php">Connectez-vous</a>
