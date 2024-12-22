@@ -13,9 +13,8 @@ class User {
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
-            // Vérifier si l'utilisateur est banni
             if ($user['is_banned'] == 1) {
-                return false; // Connexion refusée si l'utilisateur est banni
+                return false; 
             }
             return $user;
         }

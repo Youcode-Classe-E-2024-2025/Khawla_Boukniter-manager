@@ -24,48 +24,77 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $error = "Token de sécurité invalide. Veuillez réessayer.";
             } else {
                 $userModel = new User($pdo);
-                $user = $userModel->login($email, $password);
+                
+                $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+                $stmt->execute([$email]);
+                $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                if ($user) {
-                    session_regenerate_id(true);
+                if ($user_info) {
+                    if (password_verify($password, $user_info['password'])) {
+                        if ($user_info['is_banned'] == 1) {
+                            $banned_at = new DateTime($user_info['banned_at']);
+                            $formatted_date = $banned_at->format('d/m/Y à H:i');
+                            
+                            $prenom = trim($user_info['prenom']) ?: 'Utilisateur';
+                            $nom = trim($user_info['nom']) ?: '';
+                            
+                            $ban_message = sprintf(
+                                "<div class='ban-message'>
+                                    <h3>Compte Suspendu</h3>
+                                    <p>Bonjour %s %s,</p>
+                                    <p>Votre compte a été banni le <strong>%s</strong>.</p>
+                                    <p>Motifs possibles :</p>
+                                    <ul>
+                                        <li>Violation des conditions d'utilisation</li>
+                                        <li>Comportement inapproprié</li>
+                                        <li>Activités suspectes détectées</li>
+                                    </ul>
+                                    <p>Pour plus d'informations, veuillez contacter l'administrateur.</p>
+                                    <p>Email de contact : support@votreplateforme.com</p>
+                                </div>", 
+                                htmlspecialchars($prenom), 
+                                htmlspecialchars($nom), 
+                                $formatted_date
+                            );
+                            
+                            $_SESSION['ban_message'] = $ban_message;
+                        } else {
+                            unset($_SESSION['ban_message']);
+                            
+                            session_regenerate_id(true);
 
-                    $_SESSION['user'] = [
-                        'id' => $user['id'],
-                        'nom' => $user['nom'],
-                        'prenom' => $user['prenom'],
-                        'role_id' => $user['role_id'],
-                        'email' => $user['email']
-                    ];
+                            $_SESSION['user'] = [
+                                'id' => $user_info['id'],
+                                'nom' => $user_info['nom'],
+                                'prenom' => $user_info['prenom'],
+                                'role_id' => $user_info['role_id'],
+                                'email' => $user_info['email']
+                            ];
 
-                    if ($user['role_id'] === 1) {
-                        $_SESSION['is_admin'] = true;
-                    }
+                            if ($user_info['role_id'] === 1) {
+                                $_SESSION['is_admin'] = true;
+                            }
 
-                    switch ($user['role_id']) {
-                        case 1:
-                            header("Location: ../views/admin/dashboard.php");
-                            break;
-                        case 2:
-                            header("Location: ../views/formateur/dashboard.php");
-                            break;
-                        case 3:
-                            header("Location: ../views/etudiant/dashboard.php");
-                            break;
-                        default:
-                            header("Location: ../index.php");
-                    }
-                    exit();
-                } else {
-                    // Vérifier si l'utilisateur est banni
-                    $stmt = $pdo->prepare("SELECT is_banned FROM users WHERE email = ?");
-                    $stmt->execute([$email]);
-                    $user_status = $stmt->fetch(PDO::FETCH_COLUMN);
-                    
-                    if ($user_status === '1') {
-                        $error = "Votre compte a été banni. Veuillez contacter l'administrateur.";
+                            switch ($user_info['role_id']) {
+                                case 1:
+                                    header("Location: ../views/admin/dashboard.php");
+                                    break;
+                                case 2:
+                                    header("Location: ../views/formateur/dashboard.php");
+                                    break;
+                                case 3:
+                                    header("Location: ../views/etudiant/dashboard.php");
+                                    break;
+                                default:
+                                    header("Location: ../index.php");
+                            }
+                            exit();
+                        }
                     } else {
                         $error = "Email ou mot de passe incorrect";
                     }
+                } else {
+                    $error = "Email ou mot de passe incorrect";
                 }
             }
         } catch (Exception $e) {
@@ -91,6 +120,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="alert alert-danger">
                     <?= htmlspecialchars($error) ?>
                 </div>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['ban_message'])): ?>
+                <?= $_SESSION['ban_message'] ?>
             <?php endif; ?>
 
             <input type="hidden" name="csrf_token" value="<?= $csrf_token ?>">
