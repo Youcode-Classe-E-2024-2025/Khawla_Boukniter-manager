@@ -56,7 +56,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                     exit();
                 } else {
-                    $error = "Email ou mot de passe incorrect";
+                    // Vérifier si l'utilisateur est banni
+                    $stmt = $pdo->prepare("SELECT is_banned FROM users WHERE email = ?");
+                    $stmt->execute([$email]);
+                    $user_status = $stmt->fetch(PDO::FETCH_COLUMN);
+                    
+                    if ($user_status === '1') {
+                        $error = "Votre compte a été banni. Veuillez contacter l'administrateur.";
+                    } else {
+                        $error = "Email ou mot de passe incorrect";
+                    }
                 }
             }
         } catch (Exception $e) {
