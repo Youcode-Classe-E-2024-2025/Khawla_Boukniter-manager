@@ -14,16 +14,11 @@ try {
             c.description, 
             c.niveau, 
             u.nom AS formateur_nom,
-            (SELECT COUNT(*) FROM inscriptions WHERE course_id = c.id AND status = 'accepte') as inscriptions
+            (SELECT COUNT(*) FROM inscriptions WHERE course_id = c.id AND status = 'accepte') as inscriptions,
+            (SELECT COUNT(*) FROM inscriptions WHERE course_id = c.id AND user_id = ? AND (status = 'accepte' OR status = 'en_attente')) as user_enrolled
         FROM cours c
         JOIN users u ON c.formateur_id = u.id
         WHERE c.is_active = 1
-        AND c.id NOT IN (
-            SELECT course_id 
-            FROM inscriptions 
-            WHERE user_id = ? 
-            AND (status = 'accepte' OR status = 'en_attente')
-        )
     ");
     $stmt->execute([$_SESSION['user']['id']]);
     $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -51,11 +46,11 @@ try {
             <ul>
                 <li><a href="dashboard.php">Tableau de bord</a></li>
                 <li><a href="courses.php">Mes Cours</a></li>
+                <li><a href="../../auth/logout.php">Déconnexion</a></li>
             </ul>
         </div>
 
         <?php 
-
         if (isset($_SESSION['success_message'])) {
             echo '<div class="success">' . htmlspecialchars($_SESSION['success_message']) . '</div>';
             unset($_SESSION['success_message']);
@@ -85,11 +80,15 @@ try {
                         <p><strong>Formateur :</strong> <?= htmlspecialchars($course['formateur_nom']) ?></p>
                         <p><strong>Inscriptions :</strong> <?= $course['inscriptions'] ?></p>
 
-                        <form action="enroll.php" method="POST">
-                            <?php CSRFToken::insertTokenField(); ?>
-                            <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
-                            <button type="submit" class="btn">S'inscrire</button>
-                        </form>
+                        <?php if ($course['user_enrolled'] > 0): ?>
+                            <p class="text-warning">Déjà inscrit</p>
+                        <?php else: ?>
+                            <form action="enroll.php" method="POST">
+                                <?php CSRFToken::insertTokenField(); ?>
+                                <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
+                                <button type="submit" class="btn">S'inscrire</button>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </div>
