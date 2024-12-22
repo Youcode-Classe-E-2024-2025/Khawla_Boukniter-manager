@@ -102,7 +102,7 @@ $csrf_token = CSRFToken::generateToken();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier un Cours - Formateur</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="https:
+    <!-- <link rel="stylesheet" href="https: -->
     <style>
         .form-course {
             max-width: 600px;

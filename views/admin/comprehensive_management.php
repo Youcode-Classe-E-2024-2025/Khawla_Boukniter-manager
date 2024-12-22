@@ -4,7 +4,6 @@ require_once '../../connexion.php';
 
 checkAccess(['1']);
 
-// Function to get counts
 function getCounts($pdo) {
     $counts = [
         'users' => $pdo->query("SELECT COUNT(*) FROM users")->fetchColumn(),
@@ -16,7 +15,6 @@ function getCounts($pdo) {
     return $counts;
 }
 
-// Handle Role Change
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_role'])) {
     $user_id = $_POST['user_id'];
     $new_role = $_POST['new_role'];
@@ -26,11 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['change_role'])) {
     $success_message = "Rôle de l'utilisateur mis à jour avec succès.";
 }
 
-// Fetch Users
 $stmt = $pdo->query("SELECT id, nom, prenom, email, role FROM users");
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch Courses
 $course_stmt = $pdo->query("
     SELECT c.id, c.titre, c.description, u.nom AS formateur_nom 
     FROM courses c
@@ -38,7 +34,6 @@ $course_stmt = $pdo->query("
 ");
 $courses = $course_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch Modules
 $module_stmt = $pdo->query("
     SELECT m.id, m.titre, m.description, c.titre AS course_titre 
     FROM modules m

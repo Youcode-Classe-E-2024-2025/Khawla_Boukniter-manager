@@ -2,13 +2,11 @@
 require_once '../../includes/auth.php';
 require_once '../../connexion.php';
 
-// Check if user is a formateur (assuming role 2)
 if (!isset($_SESSION['user']) || $_SESSION['user']['role_id'] != 2) {
     header("Location: ../auth/login.php");
     exit();
 }
 
-// Handle inscription status change
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && isset($_POST['inscription_id'])) {
         $action = $_POST['action'];
@@ -40,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch pending inscriptions for courses by this formateur
 try {
     $stmt = $pdo->prepare("
         SELECT 

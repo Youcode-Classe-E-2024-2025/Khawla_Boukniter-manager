@@ -195,24 +195,6 @@ try {
             </ul>
         </div>
 
-        <!-- <div class="filters">
-            <div class="course-filter">
-                <label for="course-select">Filtrer par cours :</label>
-                <select id="course-select" onchange="location.href='?course=' + this.value + '&page=1'">
-                    <option value="">Tous les cours</option>
-                    <?php foreach ($user_courses as $course): ?>
-                        <option value="<?= $course['id'] ?>" 
-                                <?= $course_filter == $course['id'] ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($course['titre']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="total-modules">
-                <p>Total des modules : <?= $total_modules ?></p>
-            </div>
-        </div> -->
-
         <div class="modules-grid">
             <?php if (empty($modules)): ?>
                 <div class="alert alert-info">

@@ -3,7 +3,7 @@ require_once '../../includes/auth.php';
 require_once '../../connexion.php';
 require_once '../../includes/error_handler.php';
 
-checkAccess([2]); // Seuls les formateurs peuvent supprimer des étudiants
+checkAccess([1, 2]);
 
 $user = $_SESSION['user'];
 $student_id = isset($_GET['student_id']) ? (int)$_GET['student_id'] : 0;
@@ -15,7 +15,6 @@ if ($student_id <= 0) {
 }
 
 try {
-    // Vérifier que l'étudiant est inscrit à au moins un cours du formateur
     $check_stmt = $pdo->prepare("
         SELECT COUNT(*) as course_count
         FROM inscriptions i
@@ -31,7 +30,6 @@ try {
         exit();
     }
 
-    // Supprimer les inscriptions de l'étudiant dans les cours du formateur
     $delete_stmt = $pdo->prepare("
         DELETE FROM inscriptions
         WHERE user_id = ? AND course_id IN (

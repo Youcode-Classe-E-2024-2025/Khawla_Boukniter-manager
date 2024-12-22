@@ -3,18 +3,15 @@ session_start();
 require_once '../../config/database.php';
 require_once '../../includes/functions.php';
 
-// Check admin access
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) {
     header('Location: ../login.php');
     exit();
 }
 
-// Handle different user management actions
 $action = $_GET['action'] ?? $_POST['action'] ?? null;
 
 try {
     switch ($action) {
-        // Create new user
         case 'create_user':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $nom = $_POST['nom'] ?? '';
@@ -23,7 +20,6 @@ try {
                 $password = $_POST['password'] ?? '';
                 $role_id = $_POST['role_id'] ?? null;
 
-                // Validate input
                 $errors = [];
                 if (empty($nom)) $errors[] = "Le nom est requis.";
                 if (empty($prenom)) $errors[] = "Le prénom est requis.";
@@ -32,10 +28,8 @@ try {
                 if (empty($role_id)) $errors[] = "Le rôle est requis.";
 
                 if (empty($errors)) {
-                    // Hash password
                     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-                    // Prepare SQL
                     $stmt = $pdo->prepare("
                         INSERT INTO users 
                         (nom, prenom, email, password, role_id, status, date_creation) 
@@ -54,7 +48,6 @@ try {
             }
             break;
 
-        // Update user profile
         case 'update_user':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user_id = $_POST['user_id'] ?? null;
@@ -63,7 +56,6 @@ try {
                 $email = $_POST['email'] ?? '';
                 $role_id = $_POST['role_id'] ?? null;
 
-                // Validate input
                 $errors = [];
                 if (empty($user_id)) $errors[] = "ID utilisateur manquant.";
                 if (empty($nom)) $errors[] = "Le nom est requis.";
@@ -72,7 +64,6 @@ try {
                 if (empty($role_id)) $errors[] = "Le rôle est requis.";
 
                 if (empty($errors)) {
-                    // Prepare SQL
                     $stmt = $pdo->prepare("
                         UPDATE users 
                         SET nom = ?, prenom = ?, email = ?, role_id = ?, updated_at = NOW() 
@@ -91,12 +82,10 @@ try {
             }
             break;
 
-        // Delete user
         case 'delete_user':
             $user_id = $_GET['user_id'] ?? null;
 
             if ($user_id) {
-                // Soft delete or permanent delete based on your requirements
                 $stmt = $pdo->prepare("UPDATE users SET status = 'deleted' WHERE id = ?");
                 $stmt->execute([$user_id]);
 
@@ -106,7 +95,6 @@ try {
             }
             break;
 
-        // Reset user password
         case 'reset_password':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user_id = $_POST['user_id'] ?? null;
@@ -139,15 +127,12 @@ try {
             break;
 
         default:
-            // Redirect to users list if no action specified
             header('Location: users.php');
             exit();
     }
 } catch (PDOException $e) {
-    // Log detailed error
     error_log("User Management Error: " . $e->getMessage());
     
-    // Set generic user-friendly error
     $_SESSION['error_message'] = "Une erreur s'est produite. Veuillez réessayer.";
     header('Location: users.php');
     exit();

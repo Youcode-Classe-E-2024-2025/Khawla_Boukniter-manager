@@ -70,7 +70,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de l'Étudiant</title>
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="https:
+    <!-- <link rel="stylesheet" href="https: -->
     <style>
         .etudiant-details {
             background-color: #f9f9f9;

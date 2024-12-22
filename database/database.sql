@@ -51,13 +51,11 @@ CREATE TABLE inscriptions (
     UNIQUE KEY unique_inscription (user_id, course_id)
 );
 
--- Insertion des rôles
 INSERT INTO roles (nom, description) VALUES
 ('admin', 'Administrateur du système'),
 ('formateur', 'Formateur des cours'),
 ('etudiant', 'Étudiant inscrit aux cours');
 
--- Insertion des utilisateurs
 INSERT INTO users (role_id, nom, prenom, email, password) VALUES
 (1, 'Admin', 'System', 'admin@formation.com', 'admin123'),
 (2, 'formateur1', 'Jean', 'formateur1@formation.com', 'formateur123'),
@@ -65,14 +63,12 @@ INSERT INTO users (role_id, nom, prenom, email, password) VALUES
 (3, 'etudiant1', 'Pierre', 'etudiant1@formation.com', 'etudiant123'),
 (3, 'etudiant2', 'Sophie', 'etudiant2@formation.com', 'etudiant456');
 
--- Insertion des cours
 INSERT INTO cours (formateur_id, titre, description, niveau) VALUES
 (2, 'Introduction à PHP', 'Cours de base pour débutants en PHP', 'debutant'),
 (2, 'JavaScript Avancé', 'Maîtrisez les concepts avancés de JavaScript', 'avance'),
 (3, 'HTML/CSS pour débutants', 'Apprenez les bases du développement web', 'debutant'),
 (3, 'React Intermédiaire', "Développement d'applications avec React", 'intermediaire');
 
--- Insertion des modules
 INSERT INTO modules (course_id, titre, description, ordre, is_archived) VALUES
 (1, 'Variables et Types', 'Introduction aux variables PHP', 1, false),
 (1, 'Structures de contrôle', 'If, else, switch, boucles', 2, false),
@@ -81,7 +77,6 @@ INSERT INTO modules (course_id, titre, description, ordre, is_archived) VALUES
 (3, 'Structure HTML', 'Bases du HTML5', 1, false),
 (3, 'Styling CSS', 'Mise en forme avec CSS3', 2, false);
 
--- Insertion des inscriptions
 INSERT INTO inscriptions (user_id, course_id, progression, status) VALUES
 (4, 1, 30, 'accepte'),
 (4, 2, 0, 'en_attente'),
