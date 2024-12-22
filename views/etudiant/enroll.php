@@ -66,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container">
         <div class="header">
             <h1>Inscription au Cours</h1>
-            <p>Confirmez votre participation</p>
         </div>
 
         <?php 

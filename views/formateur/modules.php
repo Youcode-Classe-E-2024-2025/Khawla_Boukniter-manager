@@ -228,17 +228,14 @@ try {
 
                         <div class="module-card-stats">
                             <span>📚 <?= htmlspecialchars($module['cours_titre']) ?> Cours</span>
-                            <?php if (isset($module['date_creation'])): ?>
-                                <span>📅 <?= date('d/m/Y', strtotime($module['date_creation'])) ?></span>
-                            <?php endif; ?>
                         </div>
 
                         <div class="module-card-actions">
-                            <small>Créé le <?= date('d/m/Y', strtotime($module['date_creation'])) ?></small>
+                            <small>📅 Créé le <?= date('d/m/Y', strtotime($module['date_creation'])) ?></small>
                             <div>
                                 <?php if (!$module['is_archived']): ?>
                                     <a href="edit_module.php?id=<?= $module['id'] ?>" class="btn btn-sm btn-secondary">Modifier</a>
-                                    <a href="view_module.php?id=<?= $module['id'] ?>" class="btn btn-sm btn-primary">Détails</a>
+                                    <a href="#" class="btn btn-sm btn-primary">Détails</a>
                                 <?php else: ?>
                                     <a href="activate_module.php?id=<?= $module['id'] ?>&csrf_token=<?= urlencode($csrf_token) ?>" 
                                        class="btn btn-sm btn-success" 
@@ -247,7 +244,7 @@ try {
                                     </a>
                                 <?php endif; ?>
                             </div>
-                        </div>
+                        </div >
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
